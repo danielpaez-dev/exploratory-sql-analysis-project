@@ -16,7 +16,11 @@ LIMIT 10;
 
 -- MISSION 2: ¿Qué meses tienen mayor actividad de observación? Agrupa por mes a partir de las fechas de observación reales. Es útil para detectar estacionalidad.
 -- Your query here;
-
+SELECT STRFTIME('%m', observation_date) AS month, COUNT(species_id) AS total_species_observations
+FROM observations
+GROUP BY month
+ORDER BY species_observations DESC
+LIMIT 5;
 
 -- MISSION 3: Detecta las especies con pocos individuos registrados (posibles casos raros).
 -- Your query here;
