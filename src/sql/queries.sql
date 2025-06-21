@@ -11,7 +11,8 @@ FROM regions AS r
 JOIN observations AS o
     ON r.id = o.region_id
 GROUP BY r.name
-ORDER BY total_species DESC;
+ORDER BY total_species DESC
+LIMIT 10;
 
 -- MISSION 2: ¿Qué meses tienen mayor actividad de observación? Agrupa por mes a partir de las fechas de observación reales. Es útil para detectar estacionalidad.
 -- Your query here;
@@ -19,7 +20,7 @@ ORDER BY total_species DESC;
 
 -- MISSION 3: Detecta las especies con pocos individuos registrados (posibles casos raros).
 -- Your query here;
-SELECT s.scientific_name, s.common_name, SUM(o.species_id) AS species_observations
+SELECT s.scientific_name, s.common_name, COUNT(o.species_id) AS species_observations
 FROM species AS s
 JOIN observations AS o
     ON s.id = o.species_id
@@ -39,7 +40,6 @@ LIMIT 1;
 
 -- MISSION 5: ¿Qué especies han sido observadas con mayor frecuencia?
 -- Your query here;
--- Para las 10 especies más observadas (más o menos, ya que hay más espeices que han sido observadas también 6 veces)
 SELECT s.id, s.scientific_name, s.common_name, COUNT(o.species_id) AS times_observed
 FROM species AS s
 LEFT JOIN observations AS o
@@ -51,7 +51,11 @@ LIMIT 10;
 
 -- MISSION 6: Queremos identificar a los observadores más activos. ¿Quiénes son las personas que más registros de observación han realizado?
 -- Your query here;
-
+SELECT observer, COUNT(observer) AS observations_of_observer
+FROM observations
+GROUP BY observer
+ORDER BY observations_of_observer DESC
+LIMIT 10;
 
 -- MISSION 7: ¿Qué especies no han sido observadas nunca? Comprueba si existen especies en la tabla species que no aparecen en observations.
 -- Your query here;
