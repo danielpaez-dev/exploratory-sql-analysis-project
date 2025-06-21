@@ -1,52 +1,51 @@
--- PLEASE READ THIS BEFORE RUNNING THE EXERCISE
-
--- ⚠️ IMPORTANT: This SQL file may crash due to two common issues: comments and missing semicolons.
-
--- ✅ Suggestions:
--- 1) Always end each SQL query with a semicolon `;`
--- 2) Ensure comments are well-formed:
---    - Use `--` for single-line comments only
---    - Avoid inline comments after queries
---    - Do not use `/* */` multi-line comments, as they may break execution
-
--- -----------------------------------------------
--- queries.sql
--- Complete each mission by writing your SQL query
--- directly below the corresponding instruction
--- -----------------------------------------------
-
 SELECT * FROM regions;
 SELECT * FROM species;
 SELECT * FROM climate;
 SELECT * FROM observations;
 
 
--- MISSION 1
+-- MISSION 1: Queremos conocer la biodiversidad de cada región. ¿Qué regiones tienen más especies registradas?
 -- Your query here;
+SELECT r.name, r.country, COUNT(DISTINCT o.species_id) AS total_species
+FROM regions AS r
+JOIN observations AS o
+    ON r.id = o.region_id
+GROUP BY r.name
+ORDER BY total_species DESC;
 
--- MISSION 2
--- Your query here;
-
-
--- MISSION 3
--- Your query here;
-
-
--- MISSION 4
--- Your query here;
-
-
--- MISSION 5
+-- MISSION 2: ¿Qué meses tienen mayor actividad de observación? Agrupa por mes a partir de las fechas de observación reales. Es útil para detectar estacionalidad.
 -- Your query here;
 
 
--- MISSION 6
+-- MISSION 3: Detecta las especies con pocos individuos registrados (posibles casos raros).
+-- Your query here;
+SELECT s.scientific_name, s.common_name, SUM(o.species_id) AS species_observations
+FROM species AS s
+JOIN observations AS o
+    ON s.id = o.species_id
+GROUP BY s.scientific_name
+HAVING species_observations < 10
+ORDER BY species_observations;
+
+-- MISSION 4: ¿Qué región tiene el mayor número de especies distintas observadas?
 -- Your query here;
 
 
--- MISSION 7
+-- MISSION 5: ¿Qué especies han sido observadas con mayor frecuencia?
 -- Your query here;
 
 
--- MISSION 8
+-- MISSION 6: Queremos identificar a los observadores más activos. ¿Quiénes son las personas que más registros de observación han realizado?
+-- Your query here;
+
+
+-- MISSION 7: ¿Qué especies no han sido observadas nunca? Comprueba si existen especies en la tabla species que no aparecen en observations.
+-- Your query here;
+SELECT s.scientific_name, s.common_name
+FROM species AS s
+LEFT JOIN observations AS o
+    ON s.id = o.species_id
+WHERE o.species_id IS NULL;
+
+-- MISSION 8: ¿En qué fechas se observaron más especies distintas? Esta informacion es ideal para explorar la biodiversidad máxima en días específicos.
 -- Your query here;
