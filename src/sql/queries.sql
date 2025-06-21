@@ -29,6 +29,13 @@ ORDER BY species_observations;
 
 -- MISSION 4: ¿Qué región tiene el mayor número de especies distintas observadas?
 -- Your query here;
+SELECT r.name, r.country, COUNT(DISTINCT o.species_id) AS total_species_observed
+FROM regions AS r
+JOIN observations AS o
+    ON r.id = o.region_id
+GROUP BY r.name, r.country
+ORDER BY total_species_observed DESC
+LIMIT 1;
 
 
 -- MISSION 5: ¿Qué especies han sido observadas con mayor frecuencia?
