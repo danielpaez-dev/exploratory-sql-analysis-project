@@ -37,9 +37,16 @@ GROUP BY r.name, r.country
 ORDER BY total_species_observed DESC
 LIMIT 1;
 
-
 -- MISSION 5: ¿Qué especies han sido observadas con mayor frecuencia?
 -- Your query here;
+-- Para las 10 especies más observadas (más o menos, ya que hay más espeices que han sido observadas también 6 veces)
+SELECT s.id, s.scientific_name, s.common_name, COUNT(o.species_id) AS times_observed
+FROM species AS s
+LEFT JOIN observations AS o
+    ON s.id = o.species_id
+GROUP BY s.id
+ORDER BY times_observed DESC
+LIMIT 10;
 
 
 -- MISSION 6: Queremos identificar a los observadores más activos. ¿Quiénes son las personas que más registros de observación han realizado?
