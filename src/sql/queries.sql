@@ -67,3 +67,8 @@ WHERE o.species_id IS NULL;
 
 -- MISSION 8: ¿En qué fechas se observaron más especies distintas? Esta informacion es ideal para explorar la biodiversidad máxima en días específicos.
 -- Your query here;
+SELECT observation_date, COUNT(DISTINCT species_id) AS observations
+FROM observations
+GROUP BY observation_date
+ORDER BY observations DESC
+LIMIT 10; 
